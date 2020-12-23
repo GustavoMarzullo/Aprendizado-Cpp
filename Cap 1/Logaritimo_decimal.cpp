@@ -3,7 +3,9 @@
 #include <math.h> 
 
 /*
-Calculando o logaritimo decimal por biseção. Código escrito originalmente em Python.
+Calculando o logaritimo decimal por biseção
+
+Se quiser saber como cheguei em sup=0,1598*x envie um email para gustavmarzullo@gmail.com
 
 A dreaded sunny day
 So let's go where we're happy
@@ -15,7 +17,7 @@ int main()
     double inf=0, x=0, erro=0.0001;
     std::cout <<"Calculadora de log decimal. Entre com o número: " << std::endl;
     std::cin >> x; 
-    double sup=x;
+    double sup=0,1598*x;
     int num_int=0;
     double y=(inf+sup)/2;
     if (x>=1){
@@ -35,7 +37,7 @@ int main()
     }
     else if (x>0 and x<1){
         x=1/x;
-        sup=x;
+        sup=0.1598*x;
         y=(inf+sup)/2;
         while(abs(pow(10,y)-x) >= erro){
             ++num_int;
