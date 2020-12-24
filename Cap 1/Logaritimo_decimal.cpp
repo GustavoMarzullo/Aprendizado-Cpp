@@ -5,7 +5,7 @@
 /*
 Calculando o logaritimo decimal por biseção
 
-Se quiser saber como cheguei em sup=0,1598*x envie um email para gustavmarzullo@gmail.com
+Se quiser saber como cheguei em sup=0.1598*x envie um email para gustavmarzullo@gmail.com
 
 A dreaded sunny day
 So let's go where we're happy
