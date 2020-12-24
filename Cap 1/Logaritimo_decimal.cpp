@@ -17,7 +17,7 @@ int main()
     double inf=0, x=0, erro=0.0001;
     std::cout <<"Calculadora de log decimal. Entre com o número: " << std::endl;
     std::cin >> x; 
-    double sup=0,1598*x;
+    double sup=0.1598*x;
     int num_int=0;
     double y=(inf+sup)/2;
     if (x>=1){
