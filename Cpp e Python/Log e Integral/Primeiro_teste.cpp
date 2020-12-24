@@ -1,6 +1,22 @@
 #include <pybind11/pybind11.h>
+#include <cstdlib>
+#include <math.h> 
 
 namespace py = pybind11;
+
+double integral(double a, double b)
+{
+    if(a>b)
+        throw std::domain_error("Tá maluco cacete");
+
+    double soma=0, dx=0.000001;
+    while (a<=b)
+    {
+        soma+=a*a;
+        a+=dx;
+    }
+    return soma*dx;
+}
 
 double logaritimo(double x)
 {
@@ -47,11 +63,13 @@ double logaritimo(double x)
     }
 }
 
-PYBIND11_MODULE(log10, m) {
-    m.doc() = "Blablabla"; // optional module docstring
+PYBIND11_MODULE(log_int, m) {
+    m.doc() = "Meu primeiro teste da integração C++ e Python"; // optional module docstring
 
     m.def("logaritimo", &logaritimo, "Logaritimo decimal", py::arg("x"));
+
+    m.def("integral",&integral, "Integral da função f(x)=x^2",py::arg("a"),py::arg("b")); 
 }
 
 
-//c++ -O3 -Wall -shared -std=c++11 -fPIC `python3 -m pybind11 --includes` log_decimal.cpp -o log10`python3-config --extension-suffix`
+//c++ -O3 -Wall -shared -std=c++11 -fPIC `python3 -m pybind11 --includes` Primeiro_teste.cpp -o log_int`python3-config --extension-suffix`
