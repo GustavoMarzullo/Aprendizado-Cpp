@@ -3,6 +3,8 @@
 Código para calcular a integral da função f(x)=x^2
 
 Meu primeiro programa em C++ :)
+
+You may say ain't free. But it don't worry me
 */
 int main()
 {
