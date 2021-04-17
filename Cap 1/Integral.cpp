@@ -14,6 +14,6 @@ int main()
         soma+=a*a;
         a+=dx;
     }
-    std::cout <<"A integral de 0 a 3 de f(x)=x^2 é igual a " << soma*dx << std::endl;
+    std::cout <<"A integral de 2 a 3 de f(x)=x^2 é igual a " << soma*dx << std::endl;
     return 0;
 }
