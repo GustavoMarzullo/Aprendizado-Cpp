@@ -1,10 +1,7 @@
 #include <iostream>
 
 int max_of_four(int a, int b, int c, int d){
-    int max=0;
-    if (a>max){	
-        max=a;
-    }
+    int max= a;
     if (b>max){
         max=b;
     }
