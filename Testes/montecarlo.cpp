@@ -25,7 +25,7 @@ int main(){
         }
     }
     double pi=4*dentro_circ/(double)i; //https://stackoverflow.com/questions/7571326/why-does-dividing-two-int-not-yield-the-right-value-when-assigned-to-double
-    printf("%f \n",pi);
+    printf("%.10lf \n",pi);
     //system("pause");  
     return 0;
 }
