@@ -17,7 +17,7 @@ int main(){
     vector<int> vec;
     int input;
     cout<<"Para parar digite qualquer letra"<<endl;
-	cout<<"Entre com os números:"<<endl;
+    cout<<"Entre com os números:"<<endl;
     while(cin>>input){
         vec.push_back(input);
     }

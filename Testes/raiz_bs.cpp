@@ -3,7 +3,7 @@
 
 
 double f(double x){
-    return pow(x,2)-2*x-3;
+    return pow(x,2)-2*x-4;
 }
 
 int sinal(double x){
@@ -49,6 +49,6 @@ double raiz(double(*function)(double), double a, double b){
 
 int main(){
     double Raiz=raiz(f,-10,0);
-    printf("Raiz = %.3lf\n",Raiz);
+    printf("Raiz = %.3lf\n\n\n",Raiz);
     return 0;
 }
