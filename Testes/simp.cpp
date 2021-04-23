@@ -10,9 +10,9 @@ double simp(double(*function)(double),double a, double b, unsigned n){
     //returning zero if a==b
     if(a==b){
         return 0;
-    
     }
-    //roundabout to get a negative value if b>a 
+    
+    //roundabout to get a negative value if a>b 
     bool a_greater_than_b=false;
     if(a>b){
         a_greater_than_b=true;
@@ -40,6 +40,7 @@ double simp(double(*function)(double),double a, double b, unsigned n){
     }
 
     double integral=(sum_I+4*sum_II+2*sum_III)*(dx/3);
+    
     if(a_greater_than_b){
         integral=-integral;
     }
@@ -49,9 +50,10 @@ double simp(double(*function)(double),double a, double b, unsigned n){
 
 int main(){
     double pi=3.1415926536;
+    printf("\n");
     printf("The integral of f(x)=sqrt(sin(x)+1)*cos(x) from pi to 3*pi/2\n");
     printf("If my code is right it should return -2/3\n\n");
-    double I=simp(f,pi,3*pi/2,1000);
-    printf("Integral = %.10lf\n",I);
+    double I=simp(f,pi,3*pi/2,500);
+    printf("Integral = %.10lf\n\n",I);
     return 0;
 }

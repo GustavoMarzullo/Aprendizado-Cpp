@@ -1,7 +1,6 @@
 #include<iostream>
 #include<math.h>
 
-
 double f(double x){
     return pow(x,2)-2*x-4;
 }
@@ -49,6 +48,6 @@ double raiz(double(*function)(double), double a, double b){
 
 int main(){
     double Raiz=raiz(f,-10,0);
-    printf("Raiz = %.3lf\n\n\n",Raiz);
+    printf("Raiz = %.4lf\n\n\n",Raiz);
     return 0;
 }
