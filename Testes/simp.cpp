@@ -1,8 +1,8 @@
 #include <iostream>
+#include <math.h>
 
-
-double f(double x){//function to be integrated
-    return x*x*x;
+double f(double x){ //function to be integrated
+    return pow(std::sin(x)+1,0.5)*std::cos(x);
 }
 
 double simp(double(*function)(double),double a, double b, unsigned n){
@@ -48,9 +48,10 @@ double simp(double(*function)(double),double a, double b, unsigned n){
 }
 
 int main(){
-    printf("The integral of f(x)=x^3 from 0 to 2\n");
-    printf("If my code is right it should return 4\n");
-    double I=simp(f,0,2,1000);
-    printf("Integral = %.5lf\n",I);
+    double pi=3.1415926536;
+    printf("The integral of f(x)=sqrt(sin(x)+1)*cos(x) from pi to 3*pi/2\n");
+    printf("If my code is right it should return -2/3\n\n");
+    double I=simp(f,pi,3*pi/2,1000);
+    printf("Integral = %.10lf\n",I);
     return 0;
 }
