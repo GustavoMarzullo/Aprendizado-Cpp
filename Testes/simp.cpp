@@ -1,7 +1,8 @@
 #include <iostream>
 
+
 double f(double x){//function to be integrated
-    return x*x;
+    return x*x*x;
 }
 
 double simp(double(*function)(double),double a, double b, unsigned n){
@@ -24,14 +25,15 @@ double simp(double(*function)(double),double a, double b, unsigned n){
         ++n;
     }
 
-    //starting to do the real integral
+    //starting to do the real integration
     double dx=(b-a)/(double)n;
     double sum_I=function(a)+f(b);
     double sum_II=0; //sum of the odd terms
-
+    
     for(double i=a+dx; i<b;i+=2*dx){
         sum_II+=function(i);
     }
+    
     double sum_III=0;
     for(double i=a+2*dx;i<b;i+=2*dx){
         sum_III+=function(i);
@@ -46,9 +48,9 @@ double simp(double(*function)(double),double a, double b, unsigned n){
 }
 
 int main(){
-    printf("Integral of f(x)=x^2 from 0 to 3\n");
-    printf("If my code is right it should return 9\n");
-    double I=simp(f,0,3,100000);
+    printf("The integral of f(x)=x^3 from 0 to 2\n");
+    printf("If my code is right it should return 4\n");
+    double I=simp(f,0,2,1000);
     printf("Integral = %.5lf\n",I);
     return 0;
 }

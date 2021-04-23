@@ -4,7 +4,7 @@
 namespace py=pybind11;
 
 double simp(const std::function<double(double)> &function,double a, double b, unsigned n){
-
+    
     //returning zero if a==b
     if(a==b){
         return 0;
@@ -23,7 +23,7 @@ double simp(const std::function<double(double)> &function,double a, double b, un
         ++n;
     }
 
-    //starting to do the real integral
+    //starting to do the real integration
     double dx=(b-a)/(double)n;
     double sum_I=function(a)+function(b);
     double sum_II=0; //sum of the odd terms

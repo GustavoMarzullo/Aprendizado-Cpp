@@ -10,3 +10,4 @@ x86_64-w64-mingw32-g++ -static-libgcc -static-libstdc++ -o out_name.exe in_name.
 
 
 
+
