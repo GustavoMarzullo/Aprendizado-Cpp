@@ -1,6 +1,5 @@
 #include <iostream>
 #include <random>
-#include <string>
 #include <vector>
 
 using std::string; 
@@ -30,36 +29,35 @@ double yc(double x1,double y1,double x2,double y2,double xa){
     return y1+((y2-y1)/(x2-x1))*(xa-x1);
 }
 
-string local(double xa,double ya,double x1,double y1,double x2,double y2){//returns the point (xa,ya) location in relation with the line (x1,y1)->(x2,y2)
-    if(x1<xa && x2<ya){
-        return "Left";
+unsigned local(double xa,double ya,double x1,double y1,double x2,double y2){//returns the point (xa,ya) location in relation with the line (x1,y1)->(x2,y2)
+    if(x1<xa and x2<ya){
+        return 0; //left
     }
-    else if(x1>xa && x2>xa){
-        return "Right";
+    else if(x1>xa and x2>xa){
+        return 1; //right
     }
-    else if(y1<ya && y2<ya){
-        return "Below";
+    else if(y1<ya and y2<ya){
+        return 2; //below
     }
-    else if(y1>ya && y2>ya){
-        return "Above";
+    else if(y1>ya and y2>ya){
+        return 3; //above
     }
     else{
-        return "Between";
+        return 4; //between
     }
 }
 
 bool test(double x, double y, vector< vector<double> > v){ //returns true if the point (x,y) is inside the vertices defined by the vector v
-
     unsigned crossings = 0;
-    string above ="Above", between= "Between";
 
-    for(int i=0;i!=v.size()-1;++i){
-        double x1= v[i][0], y1=v[i][1];
-        double x2= v[i+1][0], y2= v[i+1][1];
-        if (local(x,y,x1,y1,x2,y2) == above){
+    for(unsigned i=0;i!=v.size()-1;++i){
+        double x1=v[i][0],y1=v[i][1];
+        double x2=v[i+1][0],y2=v[i+1][1];
+        unsigned loc=local(x,y,x1,y1,x2,y2);
+        if(loc==3){
             ++crossings;
         }
-        else if (local(x,y,x1,y1,x2,y2) == between){
+        else if(loc==4){
             if(yc(x1,y1,x2,y2,x)>=y){
                 ++crossings;
             }
@@ -69,12 +67,7 @@ bool test(double x, double y, vector< vector<double> > v){ //returns true if the
         }
     }
 
-    if(even_or_odd(crossings)){
-        return true;
-    }
-    else{
-        return false;
-    }
+    return even_or_odd(crossings);
 }
 
 vector<double> limits(vector< vector<double>> v){ //returns de xmin, xmax, ymin and ymax of the polygon
@@ -97,35 +90,32 @@ vector<double> limits(vector< vector<double>> v){ //returns de xmin, xmax, ymin 
     return vec;
 }
 
-double montecarlo(vector< vector<double>> v,unsigned n){
+double montecarlo(vector< vector<double>>v,unsigned n){
+    //getting the limits
+    vector<double> Limits= limits(v);
+    double xmin=Limits[0],xmax=Limits[1],ymin=Limits[2],ymax=Limits[3];
 
     //organizing my polygon
     vector<double> first = v[0];
     v.push_back(first);
 
-    //getting the limits
-    vector<double> Limits= limits(v);
-    double xmin=Limits[0],xmax=Limits[1],ymin=Limits[2],ymax=Limits[3];
-
     //doing the real monte carlo
     unsigned inside=0;
     for(unsigned needles=0; needles!=n;++needles){
-        double x=randnum(xmin,xmax);
-        double y=randnum(ymin,ymax);
+        double x= randnum(xmin,xmax), y=randnum(ymin,ymax);
         if(test(x,y,v)){
             ++inside;
         }
     }
-
     //calculating the area
-    double area=((xmax-xmin)*(ymax-ymin))*inside/n;
+    double area=(xmax-xmin)*(ymax-ymin)*inside/n;
     return area;
 }
 
 
 int main(){
-    vector<vector<double>> t={{0,0},{0.5,1},{1,0}};
-    double area=montecarlo(t,(int)1e4);
+    vector<vector<double>> t={{2.48,1.38},{2.68,4.9},{6.09,5.80},{8,2.83},{5.76,0.1}};
+    double area=montecarlo(t,10000);
     cout<<"Area = "<<area<<endl;
     printf("\n");
     return 0;
