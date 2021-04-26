@@ -65,7 +65,7 @@ bool test(double x, double y, vector< vector<double> > v){ //returns true if the
 }
 
 vector<double> limits(vector< vector<double>> v){ //returns the xmin, xmax, ymin and ymax of the polygon
-    double xmin=v[0][0], xmax=0, ymin=v[0][1],ymax=0;
+    double xmin=v[0][0], xmax=v[0][0], ymin=v[0][1],ymax=v[0][1];
     for(vector<double> i : v){
         if(i[0]<xmin){
             xmin=i[0];
