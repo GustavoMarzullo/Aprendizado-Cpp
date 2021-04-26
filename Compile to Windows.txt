@@ -10,4 +10,14 @@ x86_64-w64-mingw32-g++ -static-libgcc -static-libstdc++ -o out_name.exe in_name.
 
 How to use 3rd party libraries: https://stackoverflow.com/questions/17887265/how-to-include-third-party-libraries
 
+1. Use the -I compiler option to point to the 3rd party libraries directory (-I/usr/local/include/ohNet)
+
+2. Use #include "[whatever you need from oHNet].h" in your header files and compilation units as needed (Note: you might need to put relative prefix pathes for subdirecories in the 3rd party include paths tree here!)
+
+3. Use the -L linker option to specify a path to the 3rd party libs you need (-L/usr/local/lib probably)
+
+4. Use the -l linker option to specify any concrete 3rd libs you need (-l[oHNet] probably)
+
+Example: x86_64-w64-mingw32-g++ -I/home/gustavo/boost_1_76_0/ -static-libgcc -static-libstdc++ -o 'Monte Carlo Area'.exe MCP.cpp
+
 

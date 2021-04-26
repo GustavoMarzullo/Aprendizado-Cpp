@@ -2,7 +2,7 @@
 #include <random>
 #include <vector>
 #include <math.h>
-#include "boost/math/distributions/students_t.hpp"
+#include <boost/math/distributions/students_t.hpp>
 
 using std::string; 
 using std::cout;
@@ -192,6 +192,7 @@ int main(){
    cout<<"Starting to calculate the area"<<endl;
    area(vec,0.5);
    cout<<"\nFinished\n"<<endl;
+   system("pause");
    return 0;
 }
 
