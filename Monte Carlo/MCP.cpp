@@ -1,28 +1,24 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <math.h>
 
 using std::string; 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+using std::max;
+using std::min;
 
 
-double randnum (double a, double b) { //defining a function to create random numbers
+using namespace std;
+
+double randnum (double aa, double bb) { //defining a function to create random numbers
     static std::random_device rd; // non-deterministic, but may be slow
     static std::mt19937 engine{ rd() };
-    std::uniform_real_distribution<double> distribution (a,b);
+    std::uniform_real_distribution<double> distribution (aa,bb);
     return distribution(engine);
-}
-
-bool even_or_odd(unsigned x){ //return true if x is odd
-    if(x%2==0){
-        return false;
-    }
-    else{
-        return true;
-    }
 }
 
 double yc(double x1,double y1,double x2,double y2,double xa){
@@ -30,16 +26,16 @@ double yc(double x1,double y1,double x2,double y2,double xa){
 }
 
 unsigned local(double xa,double ya,double x1,double y1,double x2,double y2){//returns the point (xa,ya) location in relation with the line (x1,y1)->(x2,y2)
-    if(x1<xa and x2<ya){
+    if(x1<xa && x2<xa){
         return 0; //left
     }
-    else if(x1>xa and x2>xa){
+    else if(x1>xa && x2>xa){
         return 1; //right
     }
-    else if(y1<ya and y2<ya){
+    else if(y1<ya && y2<ya){
         return 2; //below
     }
-    else if(y1>ya and y2>ya){
+    else if(y1>ya && y2>ya){
         return 3; //above
     }
     else{
@@ -66,11 +62,12 @@ bool test(double x, double y, vector< vector<double> > v){ //returns true if the
             continue;
         }
     }
-
-    return even_or_odd(crossings);
+    
+    return (crossings%2!=0);
 }
 
-vector<double> limits(vector< vector<double>> v){ //returns de xmin, xmax, ymin and ymax of the polygon
+
+vector<double> limits(vector< vector<double>> v){ //returns the xmin, xmax, ymin and ymax of the polygon
     double xmin=v[0][0], xmax=0, ymin=v[0][1],ymax=0;
     for(vector<double> i : v){
         if(i[0]<xmin){
@@ -90,33 +87,34 @@ vector<double> limits(vector< vector<double>> v){ //returns de xmin, xmax, ymin 
     return vec;
 }
 
-double montecarlo(vector< vector<double>>v,unsigned n){
+double montecarlo(vector<vector<double>>polygon,unsigned n){
     //getting the limits
-    vector<double> Limits= limits(v);
+    vector<double> Limits= limits(polygon);
     double xmin=Limits[0],xmax=Limits[1],ymin=Limits[2],ymax=Limits[3];
 
     //organizing my polygon
-    vector<double> first = v[0];
-    v.push_back(first);
+    polygon.push_back(polygon[0]);
 
     //doing the real monte carlo
     unsigned inside=0;
     for(unsigned needles=0; needles!=n;++needles){
         double x= randnum(xmin,xmax), y=randnum(ymin,ymax);
-        if(test(x,y,v)){
+        if(test(x,y,polygon)){
             ++inside;
         }
     }
+    
     //calculating the area
-    double area=(xmax-xmin)*(ymax-ymin)*inside/n;
-    return area;
+    return (xmax-xmin)*(ymax-ymin)*inside/n;
 }
 
 
 int main(){
-    vector<vector<double>> t={{2.48,1.38},{2.68,4.9},{6.09,5.80},{8,2.83},{5.76,0.1}};
+    vector<vector<double>> t={{2,2},{11,2},{9,7},{4,10},{4,7},{1,5}}; //A=48
     double area=montecarlo(t,10000);
+    printf("\n");
     cout<<"Area = "<<area<<endl;
     printf("\n");
     return 0;
 }
+
