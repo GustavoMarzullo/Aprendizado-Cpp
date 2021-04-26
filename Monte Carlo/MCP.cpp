@@ -2,7 +2,7 @@
 #include <random>
 #include <vector>
 #include <math.h>
-//#include <boost/math/distributions/students_t.hpp>
+#include <boost/math/distributions/students_t.hpp>
 
 using std::string; 
 using std::cout;
@@ -11,14 +11,13 @@ using std::endl;
 using std::vector;
 using std::max;
 using std::min;
+using boost::math::students_t;
 
 
-using namespace std;
-
-double randnum (double aa, double bb) { //defining a function to create random numbers
+double randnum (double a, double b) { //defining a function to create random numbers
     static std::random_device rd; // non-deterministic, but may be slow
     static std::mt19937 engine{ rd() };
-    std::uniform_real_distribution<double> distribution (aa,bb);
+    std::uniform_real_distribution<double> distribution (a,b);
     return distribution(engine);
 }
 
@@ -111,15 +110,65 @@ double montecarlo(vector<vector<double>>polygon,unsigned n){
 
 
 //starting to make a confindence interval of the area
-//https://www.boost.org/doc/libs/1_56_0/libs/math/doc/html/math_toolkit/stat_tut/weg/st_eg/tut_mean_intervals.html
 
+vector<double> mean_and_sd(vector<double>data)
+{
+    double sum= 0, mean, sd=0;
+    for(unsigned i=0;i!=data.size();++i)
+    {
+        sum += data[i];
+    }
+    mean=sum/data.size();
+
+    for(unsigned i=0;i!=data.size();++i)
+        sd+=pow(data[i]-mean, 2);
+
+    sd=sqrt(sd/data.size());
+
+    return {mean,sd};
+}
+
+double confidence_interval(double sd, double n,double alpha){//Source: https://www.boost.org/doc/libs/1_56_0/libs/math/doc/html/math_toolkit/stat_tut/weg/st_eg/tut_mean_intervals.html
+
+    students_t dist(n-1);
+    double T = quantile(complement(dist, alpha/2));
+    double w = T * sd / sqrt(double(n));
+    return w;
+}
+
+vector<double>estimate(vector<vector<double>> polygon,unsigned needles, unsigned series,bool verbose){
+    vector<double>est;
+
+    for(unsigned i=0;i!=series;++i){
+        est.push_back(montecarlo(polygon,needles));
+    }
+
+    vector<double>mean_sd = mean_and_sd(est);
+    double mean=mean_sd[0],sd=mean_sd[1];
+    double w=confidence_interval(sd,series,0.05);
+
+    if(verbose){
+        printf("\nEstimative = %.5lf +/- %.5lf \nNeedles=%i\n____________________________________\n",mean,w,needles);
+    }
+
+    return {mean,w};
+}
+
+void area(vector<vector<double>> polygon,double precision=1,unsigned series=20,unsigned needles=1000,bool verbose=true){
+    double uncertain=precision;
+
+    while(uncertain>=precision){
+        vector<double> mean_w=estimate(polygon,needles,series,verbose);
+        double mean=mean_w[0], w=mean_w[1];
+        uncertain=100*(w/mean);
+        needles*=2;
+    } 
+}
 
 
 int main(){
     vector<vector<double>> t={{2,2},{11,2},{9,7},{4,10},{4,7},{1,5}}; //A=48
-    double area=montecarlo(t,10000);
-    printf("\n");
-    cout<<"Area = "<<area<<endl;
+    area(t,0.5);
     printf("\n");
     return 0;
 }
