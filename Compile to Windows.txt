@@ -8,6 +8,6 @@ For 32-bit use: i686-w64-mingw32-g++
 x86_64-w64-mingw32-g++ -static-libgcc -static-libstdc++ -o out_name.exe in_name.cpp
 
 
-
+How to use 3rd party libraries: https://stackoverflow.com/questions/17887265/how-to-include-third-party-libraries
 
 

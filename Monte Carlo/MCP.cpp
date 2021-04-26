@@ -2,20 +2,18 @@
 #include <random>
 #include <vector>
 #include <math.h>
-#include <boost/math/distributions/students_t.hpp>
+#include "boost/math/distributions/students_t.hpp"
 
 using std::string; 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
-using std::max;
-using std::min;
 using boost::math::students_t;
 
 
 double randnum (double a, double b) { //defining a function to create random numbers
-    static std::random_device rd; // non-deterministic, but may be slow
+    static std::random_device rd; 
     static std::mt19937 engine{ rd() };
     std::uniform_real_distribution<double> distribution (a,b);
     return distribution(engine);
@@ -66,7 +64,6 @@ bool test(double x, double y, vector< vector<double> > v){ //returns true if the
     return (crossings%2!=0);
 }
 
-
 vector<double> limits(vector< vector<double>> v){ //returns the xmin, xmax, ymin and ymax of the polygon
     double xmin=v[0][0], xmax=0, ymin=v[0][1],ymax=0;
     for(vector<double> i : v){
@@ -111,8 +108,7 @@ double montecarlo(vector<vector<double>>polygon,unsigned n){
 
 //starting to make a confindence interval of the area
 
-vector<double> mean_and_sd(vector<double>data)
-{
+vector<double> mean_and_sd(vector<double>data){
     double sum= 0, mean, sd=0;
     for(unsigned i=0;i!=data.size();++i)
     {
@@ -148,7 +144,7 @@ vector<double>estimate(vector<vector<double>> polygon,unsigned needles, unsigned
     double w=confidence_interval(sd,series,0.05);
 
     if(verbose){
-        printf("\nEstimative = %.5lf +/- %.5lf \nNeedles=%i\n____________________________________\n",mean,w,needles);
+        printf("\nArea = %.5lf +/- %.5lf \nNeedles = %i\n____________________________________\n",mean,w,needles);
     }
 
     return {mean,w};
@@ -165,11 +161,36 @@ void area(vector<vector<double>> polygon,double precision=1,unsigned series=20,u
     } 
 }
 
-
 int main(){
-    vector<vector<double>> t={{2,2},{11,2},{9,7},{4,10},{4,7},{1,5}}; //A=48
-    area(t,0.5);
-    printf("\n");
-    return 0;
-}
+    unsigned sides;
 
+    printf("\n");
+    cout<<"Monte Carlo estimative of a polygon's area"<<endl;
+    cout<<"How many side does your polygon have?"<<endl;
+    scanf("%i",&sides);
+
+    printf("\n");
+    double polygon[sides][2];
+    cout<<"Line by line, enter the (x,y) position of each vertex in your polygon (always clockwise or anticlockwise)"<<endl;
+    for (unsigned i = 0; i!=sides; i++){
+        for (unsigned j = 0; j!=2; j++){
+            cin >> polygon[i][j];
+        }
+    }
+
+    //array to vector
+    vector<vector<double>> vec;
+    for (unsigned i = 0; i!=sides; i++){
+        vector<double> temp;
+        for (unsigned j = 0; j!=2; j++){
+            temp.push_back(polygon[i][j]);
+        }
+        vec.push_back(temp);
+    }
+
+   printf("\n");
+   cout<<"Starting to calculate the area"<<endl;
+   area(vec,0.5);
+   cout<<"\nFinished\n"<<endl;
+   return 0;
+}
