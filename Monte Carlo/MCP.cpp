@@ -194,3 +194,7 @@ int main(){
    cout<<"\nFinished\n"<<endl;
    return 0;
 }
+
+/*
+Or you could try the non-dumb way: https://math.stackexchange.com/questions/492407/area-of-an-irregular-polygon
+*/
