@@ -2,6 +2,7 @@
 #include <random>
 #include <vector>
 #include <math.h>
+//#include <boost/math/distributions/students_t.hpp>
 
 using std::string; 
 using std::cout;
@@ -107,6 +108,11 @@ double montecarlo(vector<vector<double>>polygon,unsigned n){
     //calculating the area
     return (xmax-xmin)*(ymax-ymin)*inside/n;
 }
+
+
+//starting to make a confindence interval of the area
+//https://www.boost.org/doc/libs/1_56_0/libs/math/doc/html/math_toolkit/stat_tut/weg/st_eg/tut_mean_intervals.html
+
 
 
 int main(){
