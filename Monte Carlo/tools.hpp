@@ -1,3 +1,6 @@
+#ifndef TOOLS
+#define TOOLS
+
 #include <random>
 #include <vector>
 
@@ -75,3 +78,5 @@ vector<double> limits(vector< vector<double>> v){ //returns the xmin, xmax, ymin
     vector<double> vec={xmin,xmax,ymin,ymax};
     return vec;
 }
+
+#endif
