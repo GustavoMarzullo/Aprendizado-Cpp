@@ -192,7 +192,6 @@ int main(){
    cout<<"Starting to calculate the area"<<endl;
    area(vec,0.5);
    cout<<"\nFinished\n"<<endl;
-   system("pause");
    return 0;
 }
 
