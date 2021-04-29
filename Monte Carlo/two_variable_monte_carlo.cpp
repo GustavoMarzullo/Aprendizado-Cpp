@@ -9,8 +9,7 @@ using std::cin;
 using std::endl;
 using std::vector;
 
-
-vector<double> integral(double (*f)(double,double),vector<vector<double>> boundaries,unsigned n=10000){
+vector<double> integral(double (*f)(double,double),matrix boundaries,unsigned n=10000){
     /*
         f: function to be integrated
         boundaires: polygon defining the region of integration
@@ -48,12 +47,13 @@ vector<double> integral(double (*f)(double,double),vector<vector<double>> bounda
 }
 
 double f(double x, double y){
-    return 16-x*x-2*y*y;
+    return 3*x*cos(y)-x*sin(y);
 }
 
 int main(){
-    vector<vector<double>> boundaries = {{0,0},{2,0},{2,2},{0,2}};
-    vector<double>V = integral(f,boundaries,1000000); //should be 48 
+    double pi2=M_PI/2;
+    matrix boundaries = {{0,0},{0,pi2},{3,pi2},{3,0}};
+    vector<double> V = integral(f,boundaries,1000); //should be 9
     printf("\nArea = %lf +/- %lf\n\n",V[0],V[1]);
     return 0;
 }

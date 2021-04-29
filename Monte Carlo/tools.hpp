@@ -6,6 +6,8 @@
 
 using std::vector;
 
+typedef vector<vector<double>> matrix;
+
 
 double randnum (double a, double b) { //defining a function to create random numbers
     static std::random_device rd; 
@@ -36,7 +38,7 @@ unsigned local(double xa,double ya,double x1,double y1,double x2,double y2){//re
     }
 }
 
-bool test(double x, double y, vector< vector<double> > v){ //returns true if the point (x,y) is inside the vertices defined by the vector v
+bool test(double x, double y, matrix v){ //returns true if the point (x,y) is inside the vertices defined by the vector v
     unsigned crossings = 0;
 
     for(unsigned i=0;i!=v.size()-1;++i){
@@ -59,7 +61,7 @@ bool test(double x, double y, vector< vector<double> > v){ //returns true if the
     return (crossings%2!=0);
 }
 
-vector<double> limits(vector< vector<double>> v){ //returns the xmin, xmax, ymin and ymax of the polygon
+vector<double> limits(matrix v){ //returns the xmin, xmax, ymin and ymax of the polygon
     double xmin=v[0][0], xmax=v[0][0], ymin=v[0][1],ymax=v[0][1];
     for(vector<double> i : v){
         if(i[0]<xmin){

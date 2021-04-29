@@ -13,7 +13,7 @@ using std::vector;
 using boost::math::students_t;
 
 
-double montecarlo(vector<vector<double>>polygon,unsigned n){
+double montecarlo(matrix polygon,unsigned n){
     //getting the limits
     vector<double> Limits= limits(polygon);
     double xmin=Limits[0],xmax=Limits[1],ymin=Limits[2],ymax=Limits[3];
@@ -61,7 +61,7 @@ double confidence_interval(double sd, double n,double alpha){//Source: https://w
     return w;
 }
 
-vector<double>estimate(vector<vector<double>> polygon,unsigned needles, unsigned series,bool verbose){
+vector<double>estimate(matrix polygon,unsigned needles, unsigned series,bool verbose){
     vector<double>est;
 
     for(unsigned i=0;i!=series;++i){
@@ -79,7 +79,7 @@ vector<double>estimate(vector<vector<double>> polygon,unsigned needles, unsigned
     return {mean,w};
 }
 
-void area(vector<vector<double>> polygon,double precision=1,unsigned series=20,unsigned needles=1000,bool verbose=true){
+void area(matrix polygon,double precision=1,unsigned series=20,unsigned needles=1000,bool verbose=true){
     double uncertain=precision;
 
     while(uncertain>=precision){
@@ -108,7 +108,7 @@ int main(){
     }
 
     //array to vector
-    vector<vector<double>> vec;
+    matrix vec;
     for (unsigned i = 0; i!=sides; i++){
         vector<double> temp;
         for (unsigned j = 0; j!=2; j++){
