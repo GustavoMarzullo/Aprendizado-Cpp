@@ -49,8 +49,14 @@ bool test(double x, double y, matrix v){ //returns true if the point (x,y) is in
             ++crossings;
         }
         else if(loc==4){
-            if(yc(x1,y1,x2,y2,x)>=y){
+            if(x1==x2){
                 ++crossings;
+            }
+            else if (yc(x1,y1,x2,y2,x)>=y){
+                ++crossings;
+            }
+            else{
+                continue;
             }
         }
         else{
