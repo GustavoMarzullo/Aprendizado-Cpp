@@ -1,15 +1,14 @@
 #include <iostream>
-#include <random>
 #include <vector>
-#include <math.h> 
-#include "tools.hpp"
+#include <cmath>
+#include "tools.h"
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
 
-vector<double> integral(double (*f)(double,double),matrix boundaries,unsigned n=10000){
+vector<double> integral(double (*f)(double,double),const matrix& boundaries,unsigned n=10000){
     /*
         f: function to be integrated
         boundaires: polygon defining the region of integration
@@ -31,7 +30,7 @@ vector<double> integral(double (*f)(double,double),matrix boundaries,unsigned n=
            bracket_f+=z;
            bracket_f_squared+=z*z;
        }
-    
+
    }
 
    //calculating the volume
@@ -49,6 +48,7 @@ vector<double> integral(double (*f)(double,double),matrix boundaries,unsigned n=
 double f(double x, double y){
     return 3*x*cos(y)-x*sin(y);
 }
+
 
 int main(){
     double pi2=M_PI/2;

@@ -1,9 +1,8 @@
 #include <iostream>
-#include <random>
 #include <vector>
-#include <math.h>
+#include <cmath>
 #include <boost/math/distributions/students_t.hpp>
-#include "tools.hpp"
+#include "tools.h"
 
 using std::string; 
 using std::cout;
@@ -61,7 +60,7 @@ double confidence_interval(double sd, double n,double alpha){//Source: https://w
     return w;
 }
 
-vector<double>estimate(matrix polygon,unsigned needles, unsigned series,bool verbose){
+vector<double>estimate(const matrix& polygon,unsigned needles, unsigned series,bool verbose){
     vector<double>est;
 
     for(unsigned i=0;i!=series;++i){
@@ -79,7 +78,7 @@ vector<double>estimate(matrix polygon,unsigned needles, unsigned series,bool ver
     return {mean,w};
 }
 
-void area(matrix polygon,double precision=1,unsigned series=20,unsigned needles=1000,bool verbose=true){
+void area(const matrix& polygon,double precision=1,unsigned series=20,unsigned needles=1000,bool verbose=true){
     double uncertain=precision;
 
     while(uncertain>=precision){

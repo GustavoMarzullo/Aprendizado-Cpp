@@ -11,7 +11,7 @@ typedef vector<vector<double>> matrix;
 
 double randnum (double a, double b) { //defining a function to create random numbers
     static std::random_device rd; 
-    static std::mt19937 engine{ rd() };
+    static std::minstd_rand engine{ rd() };
     std::uniform_real_distribution<double> distribution (a,b);
     return distribution(engine);
 }
