@@ -2,7 +2,7 @@
 #include<math.h>
 
 double f(double x){
-    return pow(x,2)-2*x-4;
+    return x-1.0;
 }
 
 int sinal(double x){
@@ -47,7 +47,7 @@ double raiz(double(*function)(double), double a, double b){
 }
 
 int main(){
-    double Raiz=raiz(f,-10,0);
+    double Raiz=raiz(f,-10,10);
     printf("Raiz = %.4lf\n\n\n",Raiz);
     return 0;
 }

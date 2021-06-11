@@ -4,7 +4,7 @@
 #include <boost/math/distributions/students_t.hpp>
 #include "tools.h"
 
-using std::string; 
+using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
@@ -22,13 +22,14 @@ double montecarlo(matrix polygon,unsigned n){
 
     //doing the real monte carlo
     unsigned inside=0;
+    int seed = 123456789; //seed for the RNG
     for(unsigned needles=0; needles!=n;++needles){
-        double x= randnum(xmin,xmax), y=randnum(ymin,ymax);
+        double x=randnum(xmin,xmax), y=randnum(ymin,ymax);
         if(test(x,y,polygon)){
             ++inside;
         }
     }
-    
+
     //calculating the area
     return (xmax-xmin)*(ymax-ymin)*inside/n;
 }
@@ -86,7 +87,7 @@ void area(const matrix& polygon,double precision=1,unsigned series=20,unsigned n
         double mean=mean_w[0], w=mean_w[1];
         uncertain=100*(w/mean);
         needles*=2;
-    } 
+    }
 }
 
 int main(){
