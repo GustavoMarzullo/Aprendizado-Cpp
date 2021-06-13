@@ -56,7 +56,7 @@ double detTriang(matrix A){
 
 matrix GetVariableMatrix(int n){
     int i,j;
-    vector<vector<double>> A(n, vector<double> (n+1, 0));
+    vector<vector<double>> A(n, vector<double> (n+1));
     printf("Enter the A matrix\n");
     for(int i=0;i<n;i++){
      for(int j=0;j<n;j++){
@@ -87,7 +87,7 @@ double _xi(matrix A, doublevec b, double det_A, int j){
 }
 
 void cramer(matrix A, doublevec b, int n){
-    doublevec results(n,0);
+    doublevec results(n);
     double det_A=detTriang(A);
     for(int i=0;i!=n;++i){
         results[i]=_xi(A,b,det_A,i);
@@ -124,6 +124,7 @@ int main(){
     b=GetConstantVector(n);
     cramer(A,b,n);
     printf("\n");
+    system("pause");
     return 0;
 }
 
