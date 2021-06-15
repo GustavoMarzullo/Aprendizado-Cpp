@@ -124,7 +124,6 @@ int main(){
     b=GetConstantVector(n);
     cramer(A,b,n);
     printf("\n");
-    system("pause");
     return 0;
 }
 
